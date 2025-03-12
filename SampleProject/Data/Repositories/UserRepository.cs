@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BusinessEntities;
 using Common;
@@ -50,6 +51,13 @@ namespace Data.Repositories
                 query = query.WhereEquals("Email", email);
             }
             return query.ToList();
+        }
+
+        public IEnumerable<User> Get(string tag)
+        {
+            return _documentSession.Query<User>()
+                                   .Where(e => e.Tags.Contains(tag, StringComparer.OrdinalIgnoreCase))
+                                   .ToList();
         }
 
         public void DeleteAll()

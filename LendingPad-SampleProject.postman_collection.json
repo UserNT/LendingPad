@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "26c5397e-2163-4643-ae23-13c5eb581e25",
+		"_postman_id": "b5e4ce64-3ed8-48d1-8361-9d604a92cded",
 		"name": "LendingPad-SampleProject",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30292534"
+		"_exporter_id": "42656658"
 	},
 	"item": [
 		{
@@ -161,7 +161,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Mark Williams (updated)\",\r\n    \"email\": null,\r\n    \"type\": 2,\r\n    \"age\": 29,\r\n    \"annualSalary\": 80000,\r\n    \"tags\": [\"A\", \"C\", \"D\"]\r\n}",
+							"raw": "{\r\n    \"name\": \"Mark Williams (updated)\",\r\n    \"email\": \"updated@email.com\",\r\n    \"type\": 2,\r\n    \"age\": 29,\r\n    \"annualSalary\": 80000,\r\n    \"tags\": [\"B\", \"C\", \"D\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -265,6 +265,72 @@
 								{
 									"key": "tag",
 									"value": "C"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:49834/users/list/?skip=0&take=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49834",
+							"path": [
+								"users",
+								"list",
+								""
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "take",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:49834/users/list/?skip=0&take=10&name=Mark%20willia",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "49834",
+							"path": [
+								"users",
+								"list",
+								""
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "take",
+									"value": "10"
+								},
+								{
+									"key": "name",
+									"value": "Mark%20willia"
 								}
 							]
 						}

@@ -4,21 +4,15 @@ namespace BusinessEntities
 {
     public class IdNameObject : IdObject
     {
-        private string _name;
-
-        public string Name
-        {
-            get => _name;
-            private set => _name = value;
-        }
+        public string Name { get; private set; }
 
         public void SetName(string name)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentNullException("Name was not provided.");
+                throw new ArgumentException("Name was not provided.", nameof(name));
             }
-            _name = name;
+            Name = name;
         }
     }
 }
