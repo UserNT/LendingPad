@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using BusinessEntities;
+﻿using BusinessEntities;
 using Common;
 using Core.Factories;
-using Data.Repositories;
+using System;
+using System.Collections.Generic;
 
 namespace Core.Services.Users
 {
@@ -12,20 +11,17 @@ namespace Core.Services.Users
     {
         private readonly IUpdateUserService _updateUserService;
         private readonly IIdObjectFactory<User> _userFactory;
-        private readonly IUserRepository _userRepository;
 
-        public CreateUserService(IIdObjectFactory<User> userFactory, IUserRepository userRepository, IUpdateUserService updateUserService)
+        public CreateUserService(IIdObjectFactory<User> userFactory, IUpdateUserService updateUserService)
         {
             _userFactory = userFactory;
-            _userRepository = userRepository;
             _updateUserService = updateUserService;
         }
 
-        public User Create(Guid id, string name, string email, UserTypes type, decimal? annualSalary, IEnumerable<string> tags)
+        public User Create(Guid id, string name, string email, UserTypes type, decimal? annualSalary, IEnumerable<string> tags, int age)
         {
             var user = _userFactory.Create(id);
-            _updateUserService.Update(user, name, email, type, annualSalary, tags);
-            _userRepository.Save(user);
+            _updateUserService.Update(user, name, email, type, annualSalary, tags, age);
             return user;
         }
     }

@@ -1,11 +1,11 @@
-﻿using System.Reflection;
-using BusinessEntities;
+﻿using BusinessEntities;
 using Common;
 using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Indexes;
 using Raven.Imports.Newtonsoft.Json;
 using SimpleInjector;
+using System.Reflection;
 
 namespace Data
 {

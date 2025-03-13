@@ -1,90 +1,59 @@
-﻿using System;
+﻿using Common.Extensions;
+using System;
 using System.Collections.Generic;
-using Common.Extensions;
 
 namespace BusinessEntities
 {
-    public class User : IdObject
+    public class User : IdNameObject
     {
-        private readonly List<string> _tags = new List<string>();
-        private int _age;
-        private string _email;
-        private decimal? _monthlySalary;
-        private string _name;
-        private UserTypes _type = UserTypes.Employee;
+        public const int MinAge = 16;
+        public const int MaxAge = 86;
 
-        public string Email
-        {
-            get => _email;
-            private set => _email = value;
-        }
+        public string Email { get; private set; }
 
-        public string Name
-        {
-            get => _name;
-            private set => _name = value;
-        }
+        public UserTypes Type { get; private set; }
 
-        public UserTypes Type
-        {
-            get => _type;
-            private set => _type = value;
-        }
+        public decimal? MonthlySalary { get; private set; }
 
-        public decimal? MonthlySalary
-        {
-            get => _monthlySalary;
-            private set => _monthlySalary = value;
-        }
+        public int Age { get; private set; }
 
-        public int Age
-        {
-            get => _age;
-            private set => _age = value;
-        }
-
-        public IEnumerable<string> Tags
-        {
-            get => _tags;
-            private set => _tags.Initialize(value);
-        }
-
-        public void SetName(string name)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ArgumentNullException("Name was not provided.");
-            }
-            _name = name;
-        }
+        public IEnumerable<string> Tags { get; private set; } = new List<string>();
 
         public void SetEmail(string email)
         {
-            if (string.IsNullOrEmpty(email))
+            if (string.IsNullOrWhiteSpace(email))
             {
-                throw new ArgumentNullException("Name was not provided.");
+                throw new ArgumentException("Email was not provided.", nameof(email));
             }
-            _email = email;
+            Email = email;
         }
 
         public void SetType(UserTypes type)
         {
-            _type = type;
+            Type = type;
         }
 
         public void SetAge(int age)
         {
-            _email = _name;
+            if (age < MinAge || age > MaxAge)
+            {
+                throw new ArgumentOutOfRangeException($"Age must be between {MinAge} and {MaxAge}");
+            }
+            Age = age;
         }
 
         public void SetMonthlySalary(decimal? monthlySalary)
         {
-            _monthlySalary = monthlySalary;
+            if (monthlySalary.HasValue && monthlySalary.Value < 0)
+            {
+                throw new ArgumentOutOfRangeException("MonthlySalary must be greater than or equal to 0.", nameof(monthlySalary));
+            }
+            MonthlySalary = monthlySalary;
         }
 
         public void SetTags(IEnumerable<string> tags)
         {
-            _tags.Initialize(tags);
+            ((List<string>)Tags).Initialize(tags);
         }
     }
 }

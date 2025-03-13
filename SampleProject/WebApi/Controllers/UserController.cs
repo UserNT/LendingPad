@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Web.Http;
-using BusinessEntities;
+﻿using BusinessEntities;
 using Core.Services.Users;
+using System;
+using System.Linq;
+using System.Web.Http;
 using WebApi.Models.Users;
 
 namespace WebApi.Controllers
@@ -26,70 +25,96 @@ namespace WebApi.Controllers
 
         [Route("{userId:guid}/create")]
         [HttpPost]
-        public HttpResponseMessage CreateUser(Guid userId, [FromBody] UserModel model)
+        public IHttpActionResult CreateUser(Guid userId, [FromBody] UserModel model)
         {
-            var user = _createUserService.Create(userId, model.Name, model.Email, model.Type, model.AnnualSalary, model.Tags);
-            return Found(new UserData(user));
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = _createUserService.Create(userId, model.Name, model.Email, model.Type, model.AnnualSalary, model.Tags, model.Age);
+            return Ok(new UserData(user));
         }
 
         [Route("{userId:guid}/update")]
         [HttpPost]
-        public HttpResponseMessage UpdateUser(Guid userId, [FromBody] UserModel model)
+        public IHttpActionResult UpdateUser(Guid userId, [FromBody] UserModel model)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var user = _getUserService.GetUser(userId);
             if (user == null)
             {
-                return DoesNotExist();
+                return NotFound();
             }
-            _updateUserService.Update(user, model.Name, model.Email, model.Type, model.AnnualSalary, model.Tags);
-            return Found(new UserData(user));
+            _updateUserService.Update(user, model.Name, model.Email, model.Type, model.AnnualSalary, model.Tags, model.Age);
+            return Ok(new UserData(user));
         }
 
         [Route("{userId:guid}/delete")]
         [HttpDelete]
-        public HttpResponseMessage DeleteUser(Guid userId)
+        public IHttpActionResult DeleteUser(Guid userId)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var user = _getUserService.GetUser(userId);
             if (user == null)
             {
-                return DoesNotExist();
+                return NotFound();
             }
             _deleteUserService.Delete(user);
-            return Found();
+            return Ok();
         }
 
         [Route("{userId:guid}")]
         [HttpGet]
-        public HttpResponseMessage GetUser(Guid userId)
+        public IHttpActionResult GetUser(Guid userId)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var user = _getUserService.GetUser(userId);
-            return Found(new UserData(user));
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new UserData(user));
         }
 
         [Route("list")]
         [HttpGet]
-        public HttpResponseMessage GetUsers(int skip, int take, UserTypes? type = null, string name = null, string email = null)
+        public IHttpActionResult GetUsers(int skip, int take, UserTypes? type = null, string name = null, string email = null)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var users = _getUserService.GetUsers(type, name, email)
                                        .Skip(skip).Take(take)
                                        .Select(q => new UserData(q))
                                        .ToList();
-            return Found(users);
+            return Ok(users);
         }
 
         [Route("clear")]
         [HttpDelete]
-        public HttpResponseMessage DeleteAllUsers()
+        public IHttpActionResult DeleteAllUsers()
         {
             _deleteUserService.DeleteAll();
-            return Found();
+            return Ok();
         }
 
         [Route("list/tag")]
         [HttpGet]
-        public HttpResponseMessage GetUsersByTag(string tag)
+        public IHttpActionResult GetUsersByTag(string tag)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var users = _getUserService.GetUsers(tag)
+                                       .Select(q => new UserData(q))
+                                       .ToList();
+            return Ok(users);
         }
     }
 }
