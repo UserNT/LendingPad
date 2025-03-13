@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using BusinessEntities;
 using Core.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 using WebApi.Models;
 
 namespace WebApi.Controllers
@@ -102,6 +105,21 @@ namespace WebApi.Controllers
             var dto = mapper.Map<ProductInfoDTO>(entity);
             
             return Ok(dto);
+        }
+
+        [Route("list")]
+        [HttpPost]
+        public IHttpActionResult Get([FromBody] FilterRequestDTO model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var predicate = BuildFilterPredicate<Product>(model);
+            var orderBy = BuildOrderByLambda<Product>(model.OrderBy);
+
+            var result = productsService.Get(predicate, orderBy, model.IsDescOrder, model.Skip, model.Take).ToList();
+
+            return Ok(result);
         }
     }
 }

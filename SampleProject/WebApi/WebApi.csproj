@@ -224,6 +224,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FilterDTO.cs" />
     <Compile Include="Models\UpdateProductDTO.cs" />
     <Compile Include="Models\CreateProductDTO.cs" />
     <Compile Include="Models\EnumData.cs" />

@@ -14,6 +14,8 @@ namespace Core.Services
 
         IEnumerable<Product> GetAll(bool includeDeleted);
 
+        IEnumerable<Product> Get(Predicate<Product> predicate, Func<Product, object> orderBy, bool isDescOrder, int skip, int take);
+
         Product Get(Guid id);
         
         void Update(Product entity, decimal price, string description);

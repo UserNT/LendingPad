@@ -64,6 +64,11 @@ namespace Core.Services
             return productsRepository.Get(x => !x.DeleteDate.HasValue);
         }
 
+        public IEnumerable<Product> Get(Predicate<Product> predicate, Func<Product, object> orderBy, bool isDescOrder, int skip, int take)
+        {
+            return productsRepository.Get(predicate, orderBy, isDescOrder, skip, take);
+        }
+
         public void Update(Product entity, decimal price, string description)
         {
             entity.Price = price;

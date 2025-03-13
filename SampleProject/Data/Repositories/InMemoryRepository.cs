@@ -23,7 +23,7 @@ namespace Data.Repositories
             if (memoryCache.TryGetValue(tableName, out var obj) &&
                 obj is ConcurrentDictionary<Guid, T> table)
             {
-                return table.Values.ToList();
+                return table.Values;
             }
 
             return Enumerable.Empty<T>();
@@ -31,7 +31,19 @@ namespace Data.Repositories
 
         public IEnumerable<T> Get(Predicate<T> predicate)
         {
-            return GetAll().Where(x => predicate(x)).ToList();
+            return GetAll().Where(x => predicate(x));
+        }
+
+        public IEnumerable<T> Get(Predicate<T> predicate, Func<T, object> orderBy, bool isDescOrder, int skip, int take)
+        {
+            var query = GetAll().Where(x => predicate(x));
+            
+            if (isDescOrder)
+                query = query.OrderByDescending(orderBy);
+            else
+                query = query.OrderBy(orderBy);
+            
+            return query.Skip(skip).Take(take);
         }
 
         public T Get(Guid id)

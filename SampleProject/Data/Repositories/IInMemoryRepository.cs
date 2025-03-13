@@ -10,6 +10,8 @@ namespace Data.Repositories
 
         IEnumerable<T> Get(Predicate<T> predicate);
 
+        IEnumerable<T> Get(Predicate<T> predicate, Func<T, object> orderBy, bool isDescOrder, int skip, int take);
+        
         T Get(Guid id);
 
         void Delete(T entity);

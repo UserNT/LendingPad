@@ -308,7 +308,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:49834/users/list/?skip=0&take=10&name=Mark%20willia",
+							"raw": "http://localhost:49834/users/list/?skip=0&take=10&name=Mark%20wi",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -330,7 +330,7 @@
 								},
 								{
 									"key": "name",
-									"value": "Mark%20willia"
+									"value": "Mark%20wi"
 								}
 							]
 						}
@@ -344,7 +344,178 @@
 			"item": [
 				{
 					"name": "Products",
-					"item": []
+					"item": [
+						{
+							"name": "Delete All Products",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49834/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Product",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49834/products/8baeb2c4-81c4-4734-bb0e-96031649f6b4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"products",
+										"8baeb2c4-81c4-4734-bb0e-96031649f6b4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Product 1\",\r\n    \"description\": \"Product something 1\",\r\n    \"price\": 150\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:49834/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"Description 2\",\r\n    \"price\": 2.5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:49834/products/8baeb2c4-81c4-4734-bb0e-96031649f6b4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"products",
+										"8baeb2c4-81c4-4734-bb0e-96031649f6b4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49834/products?includeDeleted=false",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "includeDeleted",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Products",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"skip\": 0,\r\n    \"take\": 10,\r\n    \"orderBy\": \"Name\",\r\n    \"isDescOrder\": true,\r\n    \"filters\": {\r\n        \"logic\": \"OR\",\r\n        \"filters\": [\r\n            {\r\n                \"logic\": \"AND\",\r\n                \"filters\": [\r\n                    {\r\n                        \"left\": \"Price\",\r\n                        \"operator\": \"GreatThan\",\r\n                        \"right\": 0\r\n                    },\r\n                    {\r\n                        \"left\": \"Price\",\r\n                        \"operator\": \"LessThan\",\r\n                        \"right\": 200\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"left\": \"Description\",\r\n                \"operator\": \"Contains\",\r\n                \"right\": \"something\"\r\n            }\r\n        ]\r\n    }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:49834/products/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"products",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Product By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49834/products/df63d59b-c7b2-4b01-8ce1-aa69a98f8c3d",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"products",
+										"df63d59b-c7b2-4b01-8ce1-aa69a98f8c3d"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "Orders",
