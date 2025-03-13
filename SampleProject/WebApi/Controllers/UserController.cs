@@ -100,9 +100,6 @@ namespace WebApi.Controllers
         [HttpDelete]
         public IHttpActionResult DeleteAllUsers()
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             _deleteUserService.DeleteAll();
             return Ok();
         }

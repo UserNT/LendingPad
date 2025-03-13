@@ -1,15 +1,19 @@
-﻿using System.Web.Http;
-using System.Web.Http.Filters;
+﻿using AutoMapper;
+using BusinessEntities;
 using Common;
 using Core;
 using Data;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using SimpleInjector.Lifestyles;
+using System.Web.Http;
+using System.Web.Http.Filters;
 using WebApi.App_Start;
+using WebApi.Models;
 
 namespace WebApi
 {
@@ -23,6 +27,15 @@ namespace WebApi
 
             var assembly = typeof(WebApiConfig).Assembly;
             InitializeAssemblyInstancesService.Initialize(container, lifestyle, assembly);
+
+            var memoryCache = new MemoryCache(new MemoryCacheOptions());
+            container.RegisterSingleton<IMemoryCache>(memoryCache);
+
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Product, ProductInfoDTO>();
+            });
+            container.RegisterSingleton<IMapper>(new Mapper(configuration));
 
             DataConfiguration.Initialize(container, lifestyle);
             CoreConfiguration.Initialize(container, lifestyle);
