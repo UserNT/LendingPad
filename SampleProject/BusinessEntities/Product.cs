@@ -11,12 +11,15 @@ namespace BusinessEntities
 
         public string Description { get; set; }
 
-        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
+        public DateTime CreateDate { get; private set; } = DateTime.UtcNow;
 
-        public DateTime? DeleteDate { get; set; }
+        public DateTime? DeleteDate { get; private set; }
 
         public void MarkAsDeleted()
         {
+            if (DeleteDate.HasValue)
+                throw new InvalidOperationException("The delete date has already been set.");
+
             DeleteDate = DateTime.UtcNow;
         }
     }

@@ -370,7 +370,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49834/products/8baeb2c4-81c4-4734-bb0e-96031649f6b4",
+									"raw": "http://localhost:49834/products/37b2300f-55de-48be-bebd-188b044c05dc",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -378,7 +378,7 @@
 									"port": "49834",
 									"path": [
 										"products",
-										"8baeb2c4-81c4-4734-bb0e-96031649f6b4"
+										"37b2300f-55de-48be-bebd-188b044c05dc"
 									]
 								}
 							},
@@ -427,7 +427,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:49834/products/8baeb2c4-81c4-4734-bb0e-96031649f6b4",
+									"raw": "http://localhost:49834/products/b109c746-75cb-4d35-b437-3fe41cbf95c0",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -435,7 +435,7 @@
 									"port": "49834",
 									"path": [
 										"products",
-										"8baeb2c4-81c4-4734-bb0e-96031649f6b4"
+										"b109c746-75cb-4d35-b437-3fe41cbf95c0"
 									]
 								}
 							},
@@ -519,7 +519,149 @@
 				},
 				{
 					"name": "Orders",
-					"item": []
+					"item": [
+						{
+							"name": "Delete All Orders",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49834/orders",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Order",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49834/orders/f6c5baf6-5af5-4a02-94ce-7f4e2c3a6b26",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"orders",
+										"f6c5baf6-5af5-4a02-94ce-7f4e2c3a6b26"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"items\": {\r\n        \"7ab57ee2-5ad7-45c9-a68f-89d689e8db43\": 1,\r\n        \"d31c3495-3705-4603-a84a-2bcda690ab06\": 2\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:49834/orders",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Orders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49834/orders?includeDeleted=true",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"orders"
+									],
+									"query": [
+										{
+											"key": "includeDeleted",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49834/orders/df63d59b-c7b2-4b01-8ce1-aa69a98f8c3d",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"orders",
+										"df63d59b-c7b2-4b01-8ce1-aa69a98f8c3d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find Orders",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"skip\": 0,\r\n    \"take\": 10,\r\n    \"orderBy\": \"createDate\",\r\n    \"isDescOrder\": true,\r\n    \"filters\": {\r\n        \"left\": \"Total\",\r\n        \"operator\": \"LessThan\",\r\n        \"right\": 4000\r\n    }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:49834/orders/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49834",
+									"path": [
+										"orders",
+										"list"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

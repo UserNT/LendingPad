@@ -223,12 +223,16 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateOrderDTO.cs" />
     <Compile Include="Models\FilterDTO.cs" />
+    <Compile Include="Models\OrderInfoDTO.cs" />
+    <Compile Include="Models\OrderItemInfoDTO.cs" />
     <Compile Include="Models\UpdateProductDTO.cs" />
     <Compile Include="Models\CreateProductDTO.cs" />
     <Compile Include="Models\EnumData.cs" />

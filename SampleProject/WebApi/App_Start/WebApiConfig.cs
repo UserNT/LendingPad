@@ -10,6 +10,7 @@ using Newtonsoft.Json.Serialization;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using SimpleInjector.Lifestyles;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Filters;
 using WebApi.App_Start;
@@ -34,6 +35,10 @@ namespace WebApi
             var configuration = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Product, ProductInfoDTO>();
+                cfg.CreateMap<OrderItem, OrderItemInfoDTO>();
+
+                cfg.CreateMap<Order, OrderInfoDTO>()
+                   .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.Items.AsEnumerable()));
             });
             container.RegisterSingleton<IMapper>(new Mapper(configuration));
 
