@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessEntities;
 using Core.Services;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace WebApi.Controllers
     [RoutePrefix("products")]
     public class ProductsController : BaseApiController
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         private readonly IMapper mapper;
         private readonly IProductsService productsService;
 
@@ -26,6 +29,8 @@ namespace WebApi.Controllers
         [HttpGet]
         public IHttpActionResult GetAll(bool includeDeleted = false)
         {
+            Logger.Info($"{Request.Method} {Request.RequestUri}");
+
             var entities = productsService.GetAll(includeDeleted);
             
             var dtos = mapper.Map<IEnumerable<ProductInfoDTO>>(entities);
@@ -37,6 +42,8 @@ namespace WebApi.Controllers
         [HttpGet]
         public IHttpActionResult Get(Guid id)
         {
+            Logger.Info($"{Request.Method} {Request.RequestUri}");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -54,6 +61,8 @@ namespace WebApi.Controllers
         [HttpDelete]
         public IHttpActionResult DeleteAll()
         {
+            Logger.Info($"{Request.Method} {Request.RequestUri}");
+
             productsService.DeleteAll();
             return Ok();
         }
@@ -62,6 +71,8 @@ namespace WebApi.Controllers
         [HttpDelete]
         public IHttpActionResult Delete(Guid id)
         {
+            Logger.Info($"{Request.Method} {Request.RequestUri}");
+
             var entity = productsService.Get(id);
 
             if (entity == null)
@@ -75,6 +86,8 @@ namespace WebApi.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody] CreateProductDTO model)
         {
+            Logger.Info($"{Request.Method} {Request.RequestUri}");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -92,6 +105,8 @@ namespace WebApi.Controllers
         [HttpPut]
         public IHttpActionResult Update(Guid id, [FromBody] UpdateProductDTO model)
         {
+            Logger.Info($"{Request.Method} {Request.RequestUri}");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -111,6 +126,8 @@ namespace WebApi.Controllers
         [HttpPost]
         public IHttpActionResult Get([FromBody] FilterRequestDTO model)
         {
+            Logger.Info($"{Request.Method} {Request.RequestUri}");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 

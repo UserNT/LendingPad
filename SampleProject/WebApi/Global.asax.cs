@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using NLog;
+using System;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -8,8 +10,13 @@ namespace WebApi
 {
     public class WebApiApplication : HttpApplication
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         protected void Application_Start()
         {
+            LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+            Logger.Info("Application Started");
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
